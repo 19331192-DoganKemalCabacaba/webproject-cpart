@@ -198,7 +198,26 @@ select {
       console.log('Category: ' + category);
       console.log('Subcategory: ' + subcategory);
       console.log('Subject: ' + subject);
+      if (keyword || sectionId || categoryId || subcategoryId) {
+    var params = {
+      keyword: keyword,
+      sectid: sectionId,
+      catid: categoryId,
+      scatid: subcategoryId,
     }
+    $.ajax({
+      url: "/Home/getRegulations",
+      type: "POST",
+      data: params,
+      success: function (result) {
+        console.log(result);
+      },
+      error: function (error) {
+        console.log(error);
+    },
+});
+}
+}
   </script>
   </div>
 </body>
