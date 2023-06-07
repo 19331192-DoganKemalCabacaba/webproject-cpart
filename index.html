@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search Bar</title>
+  <style>
+.search-bar-container {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+}
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.search-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.kenar{
+    display: inline-flex;
+border-style: outset;
+}
+.dropdown {
+  margin-right: 10px;
+}
+
+label {
+  margin-right: 5px;
+}
+
+select {
+  width: 300px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.search-button {
+  background-color: skyblue ;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  align-self: flex-end;
+
+}
+
+.search-bar-container {
+  display: inline-flex;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+}
+.reset-button {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  
+}
+
+
+  </style>
+</head>
+<body>
+    <h1 style="color: navy; padding-left: 150px; "> ADVANCED SEARCH</h1>
+    <div class="kenar">
+    <div class="search-bar-container">
+        <div class="search-container">
+          <div class="search-box">
+            <div class="dropdown">
+             
+              <select id="category" onchange="populateSubcategories()">
+                <option value="">All Categories</option>
+                <option value="category1">Category 1</option>
+                <option value="category2">Category 2</option>
+                <option value="category3">Category 3</option>
+              </select>
+            </div>
+      
+            <div class="dropdown">
+
+              <select id="subcategory" onchange="populateSubjects()">
+                <option value="">All Subcategories</option>
+                <option value="subcategory1">SubCategory 1</option>
+                <option value="subcategory2">SubCategory 2</option>
+                <option value="subcategory3">SubCategory 3</option>
+              </select>
+            </div>
+          </div>
+      
+          <div class="search-box">
+            <div class="dropdown">
+                
+              <select id="subject" style="width:610px">
+                <option value="">All Subjects</option>
+                <option value="subject">Subject 1</option>
+                <option value="subject">Subject 2</option>
+                <option value="subject">Subject 3</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="search-box" style="padding-left: 480px; padding-top: 10px;">
+            <button class="reset-button" onclick="reset()">Reset</button>
+            <button class="search-button" onclick="search()">Search</button>
+          </div>
+        </div>
+      </div>
+      
+      
+
+  <script>
+    var data = {
+      category1: {
+        subcategories: {
+          subcategory1: ['Subject 1', 'Subject 2', 'Subject 3'],
+          subcategory2: ['Subject 4', 'Subject 5', 'Subject 6']
+        }
+      },
+      category2: {
+        subcategories: {
+          subcategory3: ['Subject 7', 'Subject 8', 'Subject 9'],
+          subcategory4: ['Subject 10', 'Subject 11', 'Subject 12']
+        }
+      },
+      category3: {
+        subcategories: {
+          subcategory5: ['Subject 13', 'Subject 14', 'Subject 15'],
+          subcategory6: ['Subject 16', 'Subject 17', 'Subject 18']
+        }
+      }
+      
+    };
+    function reset() {
+  document.getElementById("category").value = "";
+  document.getElementById("subcategory").value = "";
+  document.getElementById("subject").value = "";
+}
+
+    function populateSubcategories() {
+      var categorySelect = document.getElementById('category');
+      var subcategorySelect = document.getElementById('subcategory');
+      var subjectSelect = document.getElementById('subject');
+
+      subcategorySelect.innerHTML = '<option value="">All Subcategories</option>';
+      subjectSelect.innerHTML = '<option value="">All Subjects</option>';
+
+      var category = categorySelect.value;
+
+      if (category !== '') {
+        var subcategories = data[category].subcategories;
+        for (var subcategory in subcategories) {
+          var option = document.createElement('option');
+          option.value = subcategory;
+          option.textContent = subcategory;
+          subcategorySelect.appendChild(option);
+        }
+      }
+    }
+
+    
+    function populateSubjects() {
+      var categorySelect = document.getElementById('category');
+      var subcategorySelect = document.getElementById('subcategory');
+      var subjectSelect = document.getElementById('subject');
+
+      subjectSelect.innerHTML = '<option value="">All Subjects</option>';
+
+      var category = categorySelect.value;
+      var subcategory = subcategorySelect.value;
+
+      if (category !== '' && subcategory !== '') {
+        var subjects = data[category].subcategories[subcategory];
+        for (var i = 0; i < subjects.length; i++) {
+          var option = document.createElement('option');
+          option.value = subjects[i];
+          option.textContent = subjects[i];
+          subjectSelect.appendChild(option);
+        }
+      }
+    }
+
+    function search() {
+      var categorySelect = document.getElementById('category');
+      var subcategorySelect = document.getElementById('subcategory');
+      var subjectSelect = document.getElementById('subject');
+
+      var category = categorySelect.value;
+      var subcategory = subcategorySelect.value;
+      var subject = subjectSelect.value;
+
+
+      console.log('Category: ' + category);
+      console.log('Subcategory: ' + subcategory);
+      console.log('Subject: ' + subject);
+    }
+  </script>
+  </div>
+</body>
+</html>
